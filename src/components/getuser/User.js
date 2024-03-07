@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import "./user.css";
 import { Link } from 'react-router-dom'
 
-const User = () => {
+const User = ({setLoginUser}) => {
 
   const [users, setUsers] = useState([]);
 
@@ -32,7 +32,10 @@ const User = () => {
   }
 
   return (
+    
     <div className='userTable'>
+        <span className="addButton" onClick={() => setLoginUser({})} >Logout</span>
+        <Link to={"/course"} className='addButton'>Course</Link>
         <Link to={"/add"} className='addButton'>Add User</Link>
         <table border={1} cellPadding={10} cellSpacing={0}>
             <thead>

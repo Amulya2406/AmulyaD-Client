@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
-import { Trash } from 'lucide-react';
-import toast from "react-hot-toast";
 import "./course.css";
-import { Link } from 'react-router-dom'
 
-const Course = ({setLoginUser}) => {
+const AllCourse = ({setLoginUser}) => {
 
   const [users, setUsers] = useState([]);
 
@@ -20,22 +17,10 @@ const Course = ({setLoginUser}) => {
 
   },[])
 
-  const deleteUser = async(userId) =>{
-      await axios.delete(`http://localhost:8000/course/delete/${userId}`)
-      .then((respones)=>{
-        setUsers((prevUser)=> prevUser.filter((user)=> user._id !== userId))
-        toast.success(respones.data.msg, {position: 'top-right'})
-      })
-      .catch((error) =>{
-        console.log(error);
-      })
-  }
 
   return (
     <div className='userTable'>
             <div className="button" onClick={() => setLoginUser({})} >Logout</div>
-
-        <Link to={"/course/add"} className='addButton'>Add Course</Link>
 
         <table border={1} cellPadding={10} cellSpacing={0}>
             <thead> 
@@ -66,11 +51,7 @@ const Course = ({setLoginUser}) => {
                             <td>{user.semester}</td>
                            
                             <td>{user.student}</td>
-                            <td className='actionButtons'>
-                                <button onClick={()=> deleteUser(user._id)}><Trash /></button></td>
-                            <td className='actionButtons'>
-                                <Link to={`/course/edit/`+user._id}><i className="update">update</i></Link>
-                            </td>
+                           
                         </tr>
                         )
                     })
@@ -82,4 +63,4 @@ const Course = ({setLoginUser}) => {
   )
 }
 
-export default Course
+export default AllCourse
